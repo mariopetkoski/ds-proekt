@@ -4,7 +4,7 @@ message = "test"
 kafka_topic = "topic-1"
 
 # Kafka producer configuration
-conf = {"bootstrap.servers": "localhost:9094"}
+conf = {"bootstrap.servers": "localhost:9092,localhost:9094,localhost:9096"}
 
 # Create a single instance of the producer
 producer = Producer(conf)

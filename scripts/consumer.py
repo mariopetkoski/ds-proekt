@@ -4,7 +4,7 @@ import sys
 
 # Kafka configuration
 conf_kafka = {
-    "bootstrap.servers": "localhost:9094",  # Update with your Kafka broker information
+    "bootstrap.servers": "localhost:9092,localhost:9094,localhost:9096",  # Update with your Kafka broker information
     "group.id": "consumer1",
     "session.timeout.ms": 6000,
     "auto.offset.reset": "earliest",
