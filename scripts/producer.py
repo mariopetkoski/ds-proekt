@@ -1,8 +1,9 @@
 from confluent_kafka import Producer
+import json
+import random
+from data_generator import athlete_names, sports_list,countries_names
 
-message = "test"
 kafka_topic = "topic-1"
-
 # Kafka producer configuration
 conf = {"bootstrap.servers": "localhost:9092,localhost:9094,localhost:9096"}
 
@@ -13,7 +14,17 @@ try:
     # Produce messages
     for i in range(3):
         # Produce a message to the Kafka topic
-        producer.produce(kafka_topic, value=message.encode("utf-8"))
+        random_athlete = {
+            "athleteId": random.randint(1000, 9999),
+            "name": random.choice(athlete_names),
+            "sport": random.choice(sports_list),
+            "height": round(random.uniform(1.60, 2.40), 2),
+            "nationality": random.choice(countries_names),
+            "age": random.randint(16, 45)
+        }
+        json_message = json.dumps(random_athlete)
+
+        producer.produce(kafka_topic, value=json_message.encode("utf-8"))
 
         # Flush messages to ensure delivery
         producer.flush()
