@@ -1,5 +1,6 @@
 from confluent_kafka import Consumer, KafkaException
 from opensearchpy import OpenSearch
+import json
 import sys
 
 # Kafka configuration
@@ -20,8 +21,31 @@ es = OpenSearch(
 )
 
 # Index configuration
-index_name = "test_index"
-index_mapping = {"mappings": {"properties": {"message": {"type": "text"}}}}
+index_name = "athlete"
+index_mapping = {
+  "mappings": {
+    "properties": {
+      "athleteId": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "keyword"
+      },
+      "sport": {
+        "type": "keyword"
+      },
+      "height": {
+        "type": "float"
+      },
+      "nationality": {
+        "type": "keyword"
+      },
+      "age": {
+        "type": "integer"
+      }
+    }
+  }
+}
 
 # Ensure that the index exists with the specified mapping
 if not es.indices.exists(index=index_name):
@@ -44,16 +68,19 @@ try:
             message = msg.value().decode("utf-8")
             print("Received message:", message)
 
-            # Indexing message into OpenSearch
+            # Attempt to parse the JSON message
             try:
-                es.index(index=index_name, body={"message": message})
+                message_dict = json.loads(message)  # Convert JSON string to Python dictionary
+                # Index the message dictionary into OpenSearch
+                es.index(index=index_name, body=message_dict)
                 print("Message indexed into OpenSearch.")
+            except json.JSONDecodeError as e:
+                print(f"Error parsing message JSON: {e}")
             except Exception as e:
                 print(f"Error indexing message into OpenSearch: {e}")
 
 except KeyboardInterrupt:
     sys.stderr.write("%% Aborted by user\n")
-
 finally:
     # Close Kafka consumer
     c.close()

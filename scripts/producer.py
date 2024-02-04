@@ -7,12 +7,15 @@ kafka_topic = "topic-1"
 # Kafka producer configuration
 conf = {"bootstrap.servers": "localhost:9092,localhost:9094,localhost:9096"}
 
+
+NUMBER_OF_MESSAGES = 20 # Choose a number of messages to be produced
+
 # Create a single instance of the producer
 producer = Producer(conf)
 
 try:
     # Produce messages
-    for i in range(3):
+    for i in range(NUMBER_OF_MESSAGES):
         # Produce a message to the Kafka topic
         random_athlete = {
             "athleteId": random.randint(1000, 9999),
