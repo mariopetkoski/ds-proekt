@@ -80,5 +80,5 @@ services:
     expose:
       - "5601"
     environment:
-    - 'OPENSEARCH_HOSTS=["http://opensearch:9200"]'
-    - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"
+      - 'OPENSEARCH_HOSTS=["http://opensearch:9200"]'
+      - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"
