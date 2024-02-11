@@ -1,6 +1,6 @@
 import random, itertools
 
-from .models import Player, Team
+from models import Player, Team
 
 # maximum of 15x3x15 = 675 possible player names
 def generate_random_names():

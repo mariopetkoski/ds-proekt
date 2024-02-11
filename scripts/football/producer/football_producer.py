@@ -1,13 +1,12 @@
 import json, random, time
 from confluent_kafka import Producer
 
-from football.data_generator import generate_teams
-
+from data_generator import generate_teams
 
 kafka_topic = "football_games"
-conf = {"bootstrap.servers": "localhost:9092,localhost:9094,localhost:9096"}
+conf = {"bootstrap.servers": "broker1:9091, broker2:9093, broker3:9095"}
 producer = Producer(conf)
-teams = generate_teams(8) # quarter finals
+teams = generate_teams(8)
 
 MINUTES = 90
 SWAP_ATTACK_EVENTS = ["Steal", "Own Goal", "Offside", "Miss", "Goal"]
@@ -54,7 +53,6 @@ def switch_attacking(team1, team2):
     team1.is_attacking = not team1.is_attacking
     team2.is_attacking = not team2.is_attacking
 
-# TODO change logic for OpenSearch graphs
 def create_json(player, team, event):
     return {
         "Player": player.name,
