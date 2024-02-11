@@ -89,3 +89,20 @@ services:
     environment:
       - 'OPENSEARCH_HOSTS=["http://opensearch:9200"]'
       - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"
+
+  football-producer:
+    restart: always
+    depends_on:
+      broker3:
+        condition: service_healthy
+    build:
+      context: ./scripts/football/producer
+
+  football-consumer:
+    restart: always
+    depends_on: 
+      - football-producer
+      - opensearch-dashboards
+    build:
+      context: ./scripts/football/consumer
+      
