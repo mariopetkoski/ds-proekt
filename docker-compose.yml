@@ -59,6 +59,13 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_CREATE_TOPICS: "football_games:3:3"
+    healthcheck:
+      test: ["CMD", "bash", "-c", "kafka-topics --bootstrap-server broker3:9095 --create --topic football_games --if-not-exists --replication-factor 3 --partitions 3
+        && kafka-topics --bootstrap-server broker3:9095 --list | grep 'football_games'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
 
   opensearch:
     image: opensearchproject/opensearch:latest
