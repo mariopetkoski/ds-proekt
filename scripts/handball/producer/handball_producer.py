@@ -1,7 +1,7 @@
 import json, random, time
 from confluent_kafka import Producer
 
-from handball.data_generator import generate_teams
+from data_generator import generate_teams
 
 kafka_topic = "handball_matches"
 conf = {"bootstrap.servers": "localhost:9092"}  # Adjust your Kafka configuration as needed

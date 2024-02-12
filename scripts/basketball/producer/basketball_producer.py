@@ -3,7 +3,7 @@ import random
 import time
 from confluent_kafka import Producer
 
-from basketball.data_generator import generate_teams
+from data_generator import generate_teams
 
 # Assuming the `Team` and `Player` classes are defined as before
 

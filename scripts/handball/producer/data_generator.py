@@ -1,7 +1,7 @@
 import random, itertools
 
 # Assuming models.py has the same Player and Team classes
-from handball.models import Player, Team
+from models import Player, Team
 
 def generate_random_names():
     # Names and surnames adapted for diversity and typical handball nations

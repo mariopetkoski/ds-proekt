@@ -1,7 +1,7 @@
 import random
 import itertools
 
-from .models import Player, Team
+from models import Player, Team
 # Player and Team class definitions remain the same as provided earlier
 
 # Generates a large pool of random player names
