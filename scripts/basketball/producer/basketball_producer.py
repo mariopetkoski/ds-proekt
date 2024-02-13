@@ -55,8 +55,8 @@ def send_message(the_json):
     producer.poll(1)
 
 while True:
+    team1, team2 = random.sample(teams, 2)
     for quarter in range(QUARTERS):
-        team1, team2 = random.sample(teams, 2)
         print(f"Quarter {quarter + 1}: {team1.name} vs. {team2.name}")
         for minute in range(TIME_PER_QUARTER):
             for team in [team1, team2]:
