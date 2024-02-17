@@ -58,10 +58,8 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_CREATE_TOPICS: "football_games:3:3"
     healthcheck:
-      test: ["CMD", "bash", "-c", "kafka-topics --bootstrap-server broker3:9095 --create --topic football_games --if-not-exists --replication-factor 3 --partitions 3
-        && kafka-topics --bootstrap-server broker3:9095 --list | grep 'football_games'"]
+      test: ["CMD", "bash", "-c", "kafka-topics --bootstrap-server broker3:9095 --list"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -106,3 +104,18 @@ services:
     build:
       context: ./scripts/football/consumer
       
+  basketball-producer:
+    restart: always
+    depends_on:
+      broker3:
+        condition: service_healthy
+    build:
+      context: ./scripts/basketball/producer
+
+  basketball-consumer:
+    restart: always
+    depends_on: 
+      - basketball-producer
+      - opensearch-dashboards
+    build:
+      context: ./scripts/basketball/consumer
