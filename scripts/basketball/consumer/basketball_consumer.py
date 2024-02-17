@@ -2,11 +2,12 @@ from confluent_kafka import Consumer, KafkaException
 from opensearchpy import OpenSearch
 import json
 import sys
+import requests
 
 # Kafka configuration
 conf_kafka = {
-    "bootstrap.servers": "localhost:9092,localhost:9094,localhost:9096",  # Update with your Kafka broker information
-    "group.id": "consumer1",
+    "bootstrap.servers": "broker1:9091,broker2:9093,broker3:9095",  # Update with your Kafka broker information
+    "group.id": "basketball-analytics",
     "session.timeout.ms": 6000,
     "auto.offset.reset": "earliest",
     "enable.auto.offset.store": False,
@@ -16,7 +17,7 @@ c = Consumer(conf_kafka)
 
 # OpenSearch configuration
 es = OpenSearch(
-    [{"host": "localhost", "port": 9200, "scheme": "http"}],
+    [{"host": "opensearch", "port": 9200, "scheme": "http"}],
     headers={"Content-Type": "application/json"},
 )
 
@@ -50,6 +51,20 @@ def print_assignment(consumer, partitions):
 
 topics = ["basketball_games"]
 c.subscribe(topics, on_assign=print_assignment)
+
+# TODO uncomment for ndjson config
+# opensearch_url = "http://opensearch-dashboards:5601/api/saved_objects/_import?createNewCopies=true"
+# ndjson_file = "basketball_index_and_dashboards.ndjson"  # Ensure this file has basketball-specific visualizations
+
+# with open(ndjson_file, "rb") as f:
+#     files = {"file": f}
+#     headers = {"osd-xsrf": "true"}
+#     response = requests.post(opensearch_url, files=files, headers=headers)
+
+# if response.status_code == 200:
+#     print("Opensearch Dashboard successfully configured for Basketball")
+# else:
+#     print(f"Error: {response.status_code} - {response.text}")
 
 try:
     while True:

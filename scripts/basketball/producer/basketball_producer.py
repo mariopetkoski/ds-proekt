@@ -2,6 +2,7 @@ import json
 import random
 import time
 from confluent_kafka import Producer
+from confluent_kafka.admin import AdminClient, NewTopic
 
 from data_generator import generate_teams
 
@@ -27,7 +28,12 @@ EVENT_PROBABILITIES = {
 }
 
 kafka_topic = "basketball_games"
-conf = {"bootstrap.servers": "localhost:9092,localhost:9094,localhost:9096"}
+conf = {"bootstrap.servers": "broker1:9091, broker2:9093, broker3:9095"}
+num_partitions = 3
+num_replication = 3
+admin_client = AdminClient(conf)
+new_topic = NewTopic(kafka_topic, num_partitions, num_replication)
+admin_client.create_topics([new_topic])
 producer = Producer(conf)
 
 def get_basketball_event():
