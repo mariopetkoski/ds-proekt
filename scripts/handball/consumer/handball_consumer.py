@@ -52,19 +52,18 @@ def print_assignment(consumer, partitions):
 topics = ["handball_matches"]  # Kafka topic for handball matches
 c.subscribe(topics, on_assign=print_assignment)
 
-# TODO uncomment for ndjson config
-# opensearch_url = "http://localhost:5601/api/saved_objects/_import?createNewCopies=true"
-# ndjson_file = "handball_index_and_dashboards.ndjson"  # Ensure this file has handball-specific visualizations
+opensearch_url = "http://localhost:5601/api/saved_objects/_import?createNewCopies=true"
+ndjson_file = "handball.ndjson"  # Ensure this file has handball-specific visualizations
 
-# with open(ndjson_file, "rb") as f:
-#     files = {"file": f}
-#     headers = {"osd-xsrf": "true"}
-#     response = requests.post(opensearch_url, files=files, headers=headers)
+with open(ndjson_file, "rb") as f:
+    files = {"file": f}
+    headers = {"osd-xsrf": "true"}
+    response = requests.post(opensearch_url, files=files, headers=headers)
 
-# if response.status_code == 200:
-#     print("Opensearch Dashboard successfully configured for Handball")
-# else:
-#     print(f"Error: {response.status_code} - {response.text}")
+if response.status_code == 200:
+    print("Opensearch Dashboard successfully configured for Handball")
+else:
+    print(f"Error: {response.status_code} - {response.text}")
 
 try:
     while True:

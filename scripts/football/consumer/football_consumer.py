@@ -54,7 +54,7 @@ c.subscribe(topics, on_assign=print_assignment)
 
 # Configure dashboard
 opensearch_url = "http://opensearch-dashboards:5601/api/saved_objects/_import?createNewCopies=true"
-ndjson_file = "index_and_dashboards.ndjson"
+ndjson_file = "football.ndjson"
 
 with open(ndjson_file, "rb") as f:
     files = {"file": f}

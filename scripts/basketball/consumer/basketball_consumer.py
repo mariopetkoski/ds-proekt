@@ -52,19 +52,18 @@ def print_assignment(consumer, partitions):
 topics = ["basketball_games"]
 c.subscribe(topics, on_assign=print_assignment)
 
-# TODO uncomment for ndjson config
-# opensearch_url = "http://opensearch-dashboards:5601/api/saved_objects/_import?createNewCopies=true"
-# ndjson_file = "basketball_index_and_dashboards.ndjson"  # Ensure this file has basketball-specific visualizations
+opensearch_url = "http://opensearch-dashboards:5601/api/saved_objects/_import?createNewCopies=true"
+ndjson_file = "basketball.ndjson"  # Ensure this file has basketball-specific visualizations
 
-# with open(ndjson_file, "rb") as f:
-#     files = {"file": f}
-#     headers = {"osd-xsrf": "true"}
-#     response = requests.post(opensearch_url, files=files, headers=headers)
+with open(ndjson_file, "rb") as f:
+    files = {"file": f}
+    headers = {"osd-xsrf": "true"}
+    response = requests.post(opensearch_url, files=files, headers=headers)
 
-# if response.status_code == 200:
-#     print("Opensearch Dashboard successfully configured for Basketball")
-# else:
-#     print(f"Error: {response.status_code} - {response.text}")
+if response.status_code == 200:
+    print("Opensearch Dashboard successfully configured for Basketball")
+else:
+    print(f"Error: {response.status_code} - {response.text}")
 
 try:
     while True:
