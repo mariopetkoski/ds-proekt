@@ -5,7 +5,7 @@ from confluent_kafka.admin import AdminClient, NewTopic
 from data_generator import generate_teams
 
 kafka_topic = "handball_matches"
-conf = {"bootstrap.servers": "localhost:9092,localhost:9094,localhost:9096"}  # Adjust your Kafka configuration as needed
+conf = {"bootstrap.servers": "localhost:9092,localhost:9095,localhost:9098"}  # Adjust your Kafka configuration as needed
 num_partitions = 3
 num_replication = 3
 admin_client = AdminClient(conf)

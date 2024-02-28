@@ -28,7 +28,7 @@ EVENT_PROBABILITIES = {
 }
 
 kafka_topic = "basketball_games"
-conf = {"bootstrap.servers": "broker1:9091, broker2:9093, broker3:9095"}
+conf = {"bootstrap.servers": "broker1:9091, broker2:9094, broker3:9097"}
 num_partitions = 3
 num_replication = 3
 admin_client = AdminClient(conf)

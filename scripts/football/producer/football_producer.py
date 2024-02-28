@@ -5,7 +5,7 @@ from confluent_kafka.admin import AdminClient, NewTopic
 from data_generator import generate_teams
 
 kafka_topic = "football_games"
-conf = {"bootstrap.servers": "broker1:9091, broker2:9093, broker3:9095"}
+conf = {"bootstrap.servers": "broker1:9091, broker2:9094, broker3:9097"}
 num_partitions = 3
 num_replication = 3
 admin_client = AdminClient(conf)

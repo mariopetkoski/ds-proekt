@@ -6,7 +6,7 @@ import requests
 
 # Kafka configuration for Handball
 conf_kafka = {
-    "bootstrap.servers": "localhost:9092,localhost:9094,localhost:9096",  # Update with your Kafka broker information
+    "bootstrap.servers": "localhost:9092,localhost:9095,localhost:9098",  # Update with your Kafka broker information
     "group.id": "handball-analytics",
     "session.timeout.ms": 6000,
     "auto.offset.reset": "earliest",

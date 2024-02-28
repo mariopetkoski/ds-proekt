@@ -6,7 +6,7 @@ import requests
 
 # Kafka configuration
 conf_kafka = {
-    "bootstrap.servers": "broker1:9091,broker2:9093,broker3:9095",  # Update with your Kafka broker information
+    "bootstrap.servers": "broker1:9091,broker2:9094,broker3:9097",  # Update with your Kafka broker information
     "group.id": "football-analytics",
     "session.timeout.ms": 6000,
     "auto.offset.reset": "earliest",
