@@ -28,8 +28,7 @@ The data pipeline is orchestrated using Docker Compose, ensuring seamless integr
 To get started with the sports analytics data pipeline, ensure Docker, Docker Compose, and Kafka are installed on your system. After installing the prerequisites, clone this repository and use Docker Compose to build and run the pipeline:
 
 ```
-git clone [repository-url]
-cd [repository-directory]
+git clone https://github.com/mariopetkoski/ds-proekt.git
 docker-compose up --build
 ```
 
@@ -45,6 +44,18 @@ For the handball consumer, in another terminal window:
 ```
 cd scripts/handball/consumer
 python handball_producer.py
+```
+
+Additionally, within scripts/football/producer there is a script named football_producer_external.py which runs a Football Producer. It is able to communicate with the Kafka host machine within the same LAN network. It requires the flag --addr followed by the IP address of the Kafka host machine. You can get your machine's IP address by using ifconfing(Linux)/ipconfig(Windows).
+
+```
+cd scripts/football/consumer
+python football_producer_external.py --addr [KAFKA_HOST_IP]
+```
+
+In order to be able to connect to the brokers, you will need to put the Kafka host machine's IP address in the .env file, then run with:
+```
+docker compose --env-file .env up
 ```
 
 ### Dashboard Access
